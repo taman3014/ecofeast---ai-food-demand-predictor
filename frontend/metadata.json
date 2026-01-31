@@ -1,0 +1,7 @@
+{
+  "name": "EcoFeast - AI Food Demand Predictor",
+  "description": "A sophisticated restaurant management dashboard that uses AI to forecast food demand, minimize waste, and maximize profitability through data-driven preparation strategies.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

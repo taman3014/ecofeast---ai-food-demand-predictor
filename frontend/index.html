@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFeast | AI Demand Forecaster</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Headland+One&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-primary': '#121212',
+            'dark-secondary': '#1E1E1E',
+            'dark-tertiary': '#2C3E50',
+            'accent-teal': '#2DD4BF',
+            'accent-teal-hover': '#14B8A6',
+            'text-muted': '#95A5A6',
+            'border-muted': '#2D3748',
+          },
+          fontFamily: {
+            'headland': ['"Headland One"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Headland One', serif;
+      background-color: #121212;
+      color: #FFFFFF;
+    }
+
+    .gradient-text-dark {
+      background: linear-gradient(135deg, #2DD4BF 0%, #14B8A6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Light Mode Overrides */
+    .light-mode,
+    .light-mode body {
+      background-color: #F1F5F9 !important;
+      color: #1E293B !important;
+    }
+
+    /* Backgrounds */
+    .light-mode .bg-dark-primary,
+    .light-mode [class*="bg-dark-primary"] {
+      background-color: #F1F5F9 !important;
+    }
+
+    .light-mode .bg-dark-secondary,
+    .light-mode [class*="bg-dark-secondary"] {
+      background-color: #FFFFFF !important;
+    }
+
+    .light-mode .bg-dark-tertiary,
+    .light-mode [class*="bg-dark-tertiary"] {
+      background-color: #E2E8F0 !important;
+    }
+
+    /* Text colors */
+    .light-mode .text-white,
+    .light-mode h1,
+    .light-mode h2,
+    .light-mode h3,
+    .light-mode h4,
+    .light-mode p {
+      color: #1E293B !important;
+    }
+
+    .light-mode .text-text-muted {
+      color: #64748B !important;
+    }
+
+    .light-mode .text-slate-300,
+    .light-mode .text-slate-400 {
+      color: #475569 !important;
+    }
+
+    /* Borders */
+    .light-mode .border-border-muted,
+    .light-mode [class*="border-border-muted"] {
+      border-color: #CBD5E1 !important;
+    }
+
+    .light-mode .divide-border-muted>*+* {
+      border-color: #CBD5E1 !important;
+    }
+
+    /* Hover states */
+    .light-mode .hover\:bg-dark-tertiary:hover,
+    .light-mode .hover\:bg-dark-tertiary\/50:hover,
+    .light-mode .hover\:bg-dark-tertiary\/30:hover {
+      background-color: #E2E8F0 !important;
+    }
+
+    /* Navigation */
+    .light-mode nav,
+    .light-mode .backdrop-blur-md {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-color: #CBD5E1 !important;
+    }
+
+    /* Sidebar */
+    .light-mode aside,
+    .light-mode .min-h-screen.bg-dark-secondary {
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+    }
+
+    /* Cards and panels */
+    .light-mode .rounded-2xl,
+    .light-mode .rounded-xl,
+    .light-mode .rounded-3xl,
+    .light-mode .rounded-\[24px\],
+    .light-mode .rounded-\[32px\] {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Inputs */
+    .light-mode input,
+    .light-mode textarea,
+    .light-mode select {
+      background-color: #F8FAFC !important;
+      border-color: #CBD5E1 !important;
+      color: #1E293B !important;
+    }
+
+    .light-mode input::placeholder,
+    .light-mode textarea::placeholder {
+      color: #94A3B8 !important;
+    }
+
+    /* Tables */
+    .light-mode table,
+    .light-mode thead,
+    .light-mode tbody,
+    .light-mode tr,
+    .light-mode th,
+    .light-mode td {
+      background-color: transparent !important;
+    }
+
+    .light-mode thead {
+      background-color: #F1F5F9 !important;
+    }
+
+    .light-mode tbody tr:hover {
+      background-color: #F8FAFC !important;
+    }
+
+    /* Charts container */
+    .light-mode .recharts-wrapper {
+      background-color: transparent !important;
+    }
+
+    /* Keep accent colors the same */
+    .light-mode .text-accent-teal {
+      color: #0D9488 !important;
+    }
+
+    .light-mode .bg-accent-teal {
+      background-color: #14B8A6 !important;
+    }
+
+    /* Stat cards with icons */
+    .light-mode .bg-accent-teal\/10,
+    .light-mode .bg-blue-500\/10,
+    .light-mode .bg-purple-500\/10,
+    .light-mode .bg-amber-500\/10,
+    .light-mode .bg-green-500\/10,
+    .light-mode .bg-pink-500\/10,
+    .light-mode .bg-red-500\/10 {
+      background-color: rgba(20, 184, 166, 0.08) !important;
+    }
+
+    /* Floating widgets */
+    .light-mode .fixed.bottom-6 {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Scrollbar */
+    .light-mode ::-webkit-scrollbar {
+      background-color: #F1F5F9;
+    }
+
+    .light-mode ::-webkit-scrollbar-thumb {
+      background-color: #CBD5E1;
+    }
+
+    /* Dashed borders */
+    .light-mode .border-dashed {
+      border-color: #CBD5E1 !important;
+    }
+  </style>
+
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
